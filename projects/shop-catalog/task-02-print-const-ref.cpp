@@ -25,7 +25,7 @@ int main() {
             Category::Food
         },
         {
-            .name = "Olympus OM-D E-M1 Mark i",
+            .name = "Olympus OM-D E-M1 Mark III",
             .price = 10990.0,
             .qty = 2,
             .cat = Category::Tech

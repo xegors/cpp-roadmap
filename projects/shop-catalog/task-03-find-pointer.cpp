@@ -20,14 +20,14 @@ Product* findByName(std::vector<Product>& catalog, const std::string& name) {
     for (auto& p : catalog) {
         if (name == p.name) return &p;
     }
-    
+
     return nullptr;
 }
 const Product* findByNameConst(const std::vector<Product>& catalog, const std::string& name) {
     for (const auto& p : catalog) {
         if (name == p.name) return &p;
     }
-    
+
     return nullptr;
 }
 // const Product* - нельзя менять товар, можно менять указатель; Product* const - наоборот.
@@ -41,7 +41,7 @@ int main() {
             Category::Food
         },
         {
-            .name = "Olympus OM-D E-M1 Mark i",
+            .name = "Olympus OM-D E-M1 Mark III",
             .price = 10990.0,
             .qty = 2,
             .cat = Category::Tech
@@ -73,7 +73,6 @@ int main() {
     } else {
         std::cout << "not found!" << '\n';
     }
-
 
     auto p3 = findByNameConst(catalog, "Local Chicken Breast");
     if (p3 != nullptr) {

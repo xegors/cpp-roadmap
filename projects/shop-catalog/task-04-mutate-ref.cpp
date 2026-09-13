@@ -20,7 +20,7 @@ Product* findByName(std::vector<Product>& catalog, const std::string& name) {
     for (auto& p : catalog) {
         if (name == p.name) return &p;
     }
-    
+
     return nullptr;
 }
 
@@ -39,9 +39,9 @@ void discount(std::vector<Product>& catalog, double pct) {
 }
 
 bool removeByName(std::vector<Product>& catalog, const std::string& name) {
-    for (size_t i = 0; i != catalog.size(); ++i){ 
+    for (size_t i = 0; i != catalog.size(); ++i) {
         if (catalog[i].name == name) {
-            catalog.erase(catalog.begin() + i); 
+            catalog.erase(catalog.begin() + i);
             return true;
         }
     }
@@ -57,7 +57,7 @@ int main() {
             Category::Food
         },
         {
-            .name = "Olympus OM-D E-M1 Mark i",
+            .name = "Olympus OM-D E-M1 Mark III",
             .price = 10990.0,
             .qty = 2,
             .cat = Category::Tech
@@ -78,14 +78,21 @@ int main() {
 
     std::cout << "Trying to buy Flush: " << (buy(catalog, "Flush by Virginia Woolf", 30) ? "All good!\n" : "Nah!\n");
     std::cout << "Trying to buy bike: " << (buy(catalog, "Some Old Soviet Bike", 30) ? "All good!\n" : "Nah!\n");
+    std::cout << "Trying to buy drone: " << (buy(catalog, "Basic Drone", 1) ? "All good!\n" : "Nah!\n");
+    std::cout << '\n';
 
     std::cout << "Before discount: " << catalog[1].price << '\n';
     discount(catalog, 10);
     std::cout << "After discount: " << catalog[1].price << '\n';
 
-    std::cout << "Before removal: " <<catalog.size() << '\n';
-    removeByName(catalog, "Local Chicken Breast");
+    std::cout << "Before removal: " << catalog.size() << '\n';
+    std::cout << "Trying to remove: " << (removeByName(catalog, "Local Chicken Breast") ? "Yeah, removed!" : "No, cannot remove") << '\n';
     std::cout << "After removal: " << catalog.size() << '\n';
+    /*
+        After erase/push_back a previously taken Product* is invalidated
+        (vector shifts elements or reallocates storage),
+        so the pointer must be obtained again via findByName.
+    */
 
     std::cout << "\n----- All Goods -----\n";
     for (const auto& p : catalog) {
