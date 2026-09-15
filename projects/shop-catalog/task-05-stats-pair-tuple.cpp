@@ -18,13 +18,15 @@ struct Product {
 };
 
 std::pair<double, int> stats(const std::vector<Product>& catalog) {
-    double total = 0.0;
-    int qty = 0;
+    double overallSum = 0.0;
+    int overallQty = 0;
+
     for (const auto& p : catalog) {
-        total += p.price * p.qty;
-        qty += p.qty;
+        overallQty += p.qty;
+        overallSum += p.price * p.qty;
     }
-    return {total, qty};
+
+    return {overallSum, overallQty};
 }
 
 int main() {
@@ -58,11 +60,11 @@ int main() {
     auto [total, qty] = stats(catalog);
     std::cout << "Total value: " << total << ", Total qty: " << qty << '\n';
 
-    std::cout << "Via std::get<0>: " << std::get<0>(stats(catalog)) << '\n';
-    std::cout << "Via std::get<1>: " << std::get<1>(stats(catalog)) << '\n';
+    std::cout << "Via `std::get<0>`: " << std::get<0>(stats(catalog)) << '\n';
+    std::cout << "Via `std::get<1>`: " << std::get<1>(stats(catalog)) << '\n';
 
-    // Structured binding works with pair/tuple/array
-    // auto [t, q, n] = tuple_would_fail; // нельзя так, тут 2 элемента
-
-    return 0;
+    // Кортеж, как и пару можно распаковать с помощью structured binding.
+    std::tuple<int, std::string, double> t = {1, "wow!", 3.1415};
+    auto [a, b, c] = t;
+    std::cout << a << " " << b << " " << c << '\n';
 }
