@@ -40,7 +40,8 @@ clang++ -O2 -std=c++20 -Wall -Wextra tasks/yandex-handbook/first-steps/two-sum.c
 Учебник (`tasks/yandex-handbook`): `first-steps` (2), `types` (2), `cond-and-loops` (7),
 `vectors-and-strings` (6), `functions` (2).
 
-Проект `shop-catalog`: задачи 01–04 готовы, 05–06 — в планах (см. `TASKS.md`).
+Проект `shop-catalog`: все задачи 01–06 выполнены; файлы решений 05–06
+в репозиторий не добавлялись (см. `TASKS.md`).
 
 ## Стиль кода
 
