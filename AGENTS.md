@@ -23,7 +23,7 @@ projects/
                          # all task statements consolidated in TASKS.md
 README.md                # Russian overview, build instructions, progress
 LICENSE                  # MIT
-.clang-format            # shared minimum style (LLVM base, 4-space indent); existing files
+.clang-format            # Yandex C++ style fork (see Conventions); existing files
                          # are NOT reformatted to it on purpose — see Conventions
 ```
 
@@ -40,7 +40,17 @@ Leftover `a.out` binaries sit next to sources but are already gitignored (`*.out
 ## Conventions
 
 - Each file is a single `main()` — no headers, no classes, no build targets.
-- Style varies slightly between files; match the style of the file you're editing.
-  Use `.clang-format` for new code (LLVM base, 4-space indent, 100-col limit).
+  (Exception: `tasks/yandex-handbook/functions/` has a few helper-only `.cpp` without `main`.)
+- Code follows the **Yandex C++ Style Guide**:
+  https://github.com/yandex/CMICOT/blob/master/CPP_STYLE_GUIDE.md
+  Formatting is enforced by `.clang-format` (1TBS, 4-space indent, no tabs,
+  bodies always start on a new line). Naming is checked manually — key rules:
+  - Functions and class/struct members start with a capital letter: `FindByName()`, `Name`, `Price`.
+  - Type names get the `T` prefix, `enum class` gets the `E` prefix: `TProduct`, `ECategory`.
+  - Local variables and arguments start with a lowercase letter: `catalog`, `name`.
+  - Constants and macros are fully capitalized with underscores: `VALUE_NAME`.
+  - Always use `nullptr`, never `NULL`/`0`.
+- Style varies between older files; when editing such a file, match its style unless
+  you're rewriting it — new/leaf code follows Yandex conventions.
 - No trailing `return 0;` is consistent in some files, not others — follow the existing pattern per file.
 - A few files contain Russian inline comments (e.g. `printing-calendar.cpp`) — don't edit them or treat them as noise; they explain intent.

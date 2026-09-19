@@ -3,7 +3,7 @@
 #include <string>
 
 int main() {
-    std::string password; 
+    std::string password;
     std::getline(std::cin, password);
     bool upper = false, lower = false, digit = false, punct = false;
 

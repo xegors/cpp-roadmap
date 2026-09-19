@@ -2,45 +2,42 @@
 #include <string>
 #include <vector>
 
-enum class Category {
-    Food,
-    Bike,
-    Tech,
-    Book
+enum class ECategory { Food, Bike, Tech, Book };
+
+struct TProduct {
+    std::string Name;
+    double Price = 0.0;
+    int Qty = 0;
+    ECategory Cat;
 };
 
-struct Product {
-    std::string name;
-    double price = 0.0;
-    int qty = 0;
-    Category cat;
-};
-
-Product* findByName(std::vector<Product>& catalog, const std::string& name) {
+TProduct* FindByName(std::vector<TProduct>& catalog, const std::string& name) {
     for (auto& p : catalog) {
-        if (name == p.name) return &p;
+        if (name == p.Name)
+            return &p;
     }
 
     return nullptr;
 }
 
-bool buy(std::vector<Product>& catalog, const std::string& name, int n) {
-    Product* p = findByName(catalog, name);
-    if (p == nullptr || p->qty < n || n <= 0) return false;
+bool Buy(std::vector<TProduct>& catalog, const std::string& name, int n) {
+    TProduct* p = FindByName(catalog, name);
+    if (p == nullptr || p->Qty < n || n <= 0)
+        return false;
 
-    p->qty -= n;
+    p->Qty -= n;
     return true;
 }
 
-void discount(std::vector<Product>& catalog, double pct) {
+void Discount(std::vector<TProduct>& catalog, double pct) {
     for (auto& p : catalog) {
-        p.price *= (1 - pct / 100.0);
+        p.Price *= (1 - pct / 100.0);
     }
 }
 
-bool removeByName(std::vector<Product>& catalog, const std::string& name) {
+bool RemoveByName(std::vector<TProduct>& catalog, const std::string& name) {
     for (size_t i = 0; i != catalog.size(); ++i) {
-        if (catalog[i].name == name) {
+        if (catalog[i].Name == name) {
             catalog.erase(catalog.begin() + i);
             return true;
         }
@@ -49,54 +46,39 @@ bool removeByName(std::vector<Product>& catalog, const std::string& name) {
 }
 
 int main() {
-    std::vector<Product> catalog = {
-        {
-            "Local Chicken Breast",
-            499.9,
-            15,
-            Category::Food
-        },
-        {
-            .name = "Olympus OM-D E-M1 Mark III",
-            .price = 10990.0,
-            .qty = 2,
-            .cat = Category::Tech
-        },
-        {
-            "Some Old Soviet Bike",
-            4990.0,
-            1,
-            Category::Bike
-        },
-        {
-            "Flush by Virginia Woolf",
-            700.0,
-            70,
-            Category::Book
-        }
-    };
+    std::vector<TProduct> catalog = {
+        {"Local Chicken Breast", 499.9, 15, ECategory::Food},
+        {.Name = "Olympus OM-D E-M1 Mark III", .Price = 10990.0, .Qty = 2, .Cat = ECategory::Tech},
+        {"Some Old Soviet Bike", 4990.0, 1, ECategory::Bike},
+        {"Flush by Virginia Woolf", 700.0, 70, ECategory::Book}};
 
-    std::cout << "Trying to buy Flush: " << (buy(catalog, "Flush by Virginia Woolf", 30) ? "All good!\n" : "Nah!\n");
-    std::cout << "Trying to buy bike: " << (buy(catalog, "Some Old Soviet Bike", 30) ? "All good!\n" : "Nah!\n");
-    std::cout << "Trying to buy drone: " << (buy(catalog, "Basic Drone", 1) ? "All good!\n" : "Nah!\n");
+    std::cout << "Trying to buy Flush: "
+              << (Buy(catalog, "Flush by Virginia Woolf", 30) ? "All good!\n" : "Nah!\n");
+    std::cout << "Trying to buy bike: "
+              << (Buy(catalog, "Some Old Soviet Bike", 30) ? "All good!\n" : "Nah!\n");
+    std::cout << "Trying to buy drone: "
+              << (Buy(catalog, "Basic Drone", 1) ? "All good!\n" : "Nah!\n");
     std::cout << '\n';
 
-    std::cout << "Before discount: " << catalog[1].price << '\n';
-    discount(catalog, 10);
-    std::cout << "After discount: " << catalog[1].price << '\n';
+    std::cout << "Before discount: " << catalog[1].Price << '\n';
+    Discount(catalog, 10);
+    std::cout << "After discount: " << catalog[1].Price << '\n';
 
     std::cout << "Before removal: " << catalog.size() << '\n';
-    std::cout << "Trying to remove: " << (removeByName(catalog, "Local Chicken Breast") ? "Yeah, removed!" : "No, cannot remove") << '\n';
+    std::cout << "Trying to remove: "
+              << (RemoveByName(catalog, "Local Chicken Breast") ? "Yeah, removed!"
+                                                                : "No, cannot remove")
+              << '\n';
     std::cout << "After removal: " << catalog.size() << '\n';
     /*
-        After erase/push_back a previously taken Product* is invalidated
+        After erase/push_back a previously taken TProduct* is invalidated
         (vector shifts elements or reallocates storage),
-        so the pointer must be obtained again via findByName.
+        so the pointer must be obtained again via FindByName.
     */
 
     std::cout << "\n----- All Goods -----\n";
     for (const auto& p : catalog) {
-        std::cout << p.name << " | " << p.price << " | " << p.qty << " | "
-                  << static_cast<int>(p.cat) << '\n';
+        std::cout << p.Name << " | " << p.Price << " | " << p.Qty << " | "
+                  << static_cast<int>(p.Cat) << '\n';
     }
 }

@@ -1,7 +1,7 @@
 #include <iostream>
 
 int main() {
-    int num, result = 0; 
+    int num, result = 0;
     std::cin >> num;
 
     for (; num > 0; num /= 10) {

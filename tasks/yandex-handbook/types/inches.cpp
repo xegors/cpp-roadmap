@@ -7,6 +7,6 @@ int main(){
     cin >> lengthInCM;
 
     double lengthInIN = lengthInCM / 2.54;
-    
+
     cout << lengthInIN;
 }
