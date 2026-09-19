@@ -27,7 +27,6 @@ LICENSE                  # MIT
 .clangd                  # clangd fallback flags (-std=c++20) — there is no build system
 .editorconfig            # tabs->spaces, 4-space indent, trim trailing whitespace
 .vscode/                 # VS Code: format-on-save via clangd + extension recommendation
-.devcontainer/           # Dev Container: clang/clangd/clang-format/cppcheck/python3
 tools/style-check.py     # style checker (a local replacement for `ya style`)
 ```
 
@@ -65,9 +64,6 @@ Leftover `a.out` binaries sit next to sources but are already gitignored (`*.out
   trailing whitespace.
 - `.clangd` — clangd fallback flags (`-std=c++20 -Wall -Wextra`), needed because
   there is no build system / `compile_commands.json`.
-- `.devcontainer/` — reproducible environment (clang, clang-format, clangd,
-  cppcheck, python3) for VS Code Dev Containers; identical on any machine.
-  Requires only Docker on the host.
 
 ## Conventions
 

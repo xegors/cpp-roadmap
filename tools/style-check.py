@@ -34,7 +34,7 @@ import subprocess
 REPO_ROOT = pathlib.Path(__file__).resolve().parent.parent
 
 SOURCE_EXTS = (".cpp", ".h", ".cc", ".cxx", ".hpp")
-SKIP_DIRS = {".git", ".cache", ".devcontainer", "node_modules"}
+SKIP_DIRS = {".git", ".cache", "node_modules"}
 
 KEYWORDS = {
     "auto", "bool", "catch", "char", "const", "delete", "do", "double", "dynamic_cast",
@@ -53,6 +53,9 @@ ALLOWED_FUNC_NAMES = {
     "strcmp", "strcpy", "malloc", "calloc", "free", "exit", "abort", "system",
     "atexit", "isalpha", "isdigit", "toupper", "tolower", "time",
 }
+
+# LeetCode submissions must declare exactly `class Solution` — keep it.
+ALLOWED_TYPE_NAMES = {"Solution"}
 
 TYPE_DECL_RE = re.compile(r"(?:struct|class|union|enum(?:\s+class)?)\s+(\w+)")
 
@@ -144,7 +147,7 @@ def check_naming(path):
             else:
                 ok = name.startswith("T")
                 kind = "struct/class/union"
-            if not ok and not name.startswith(("std", "_")):
+            if not ok and not name.startswith(("std", "_")) and name not in ALLOWED_TYPE_NAMES:
                 issues.append(f"{lineno}: type `{name}` must start with "
                               f"{'E' if kind != 'struct/class/union' else 'T'} ({kind})")
             if "{" in stripped and ("struct" in stripped and "enum" not in stripped):

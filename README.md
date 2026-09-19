@@ -37,20 +37,16 @@ clang++ -O2 -std=c++20 -Wall -Wextra tasks/yandex-handbook/first-steps/two-sum.c
 
 ## Окружение
 
-Репозиторий несёт в себе всё, что нужно для комфортной работы, —
-одинаково на любой машине:
+Для сборки нужен `clang++`, для чекера стиля — `clang-format` (обычно идут
+в пакете `clang`). Опционально `clangd` для автодополнения и format-on-save
+в редакторах.
 
-- `.devcontainer/` — Dev Container (Docker): clang, clang-format, clangd,
-  cppcheck, python3. Открываешь репо в VS Code с расширением
-  «Dev Containers» — получаешь то же окружение, что и здесь;
-- `.vscode/` — format-on-save через clangd (расширение
-  `llvm-vs-code-extensions.vscode-clangd`);
+Настройки уже в репозитории:
+
+- `.vscode/` — VS Code: format-on-save через clangd (расширение
+  `llvm-vs-code-extensions.vscode-clangd`), 4 пробела, стрип трейлинг-пробелов;
 - `.clangd` + `.editorconfig` — фоллбэк-флаги clangd (`-std=c++20`)
-  и настройки отступов для любых редакторов;
-- `tools/style-check.py` — локальный чекер Yandex-стиля (см. ниже).
-
-Если Docker-контейнер не нужен — достаточно установить пакеты
-`clang clang-format clangd cppcheck` из пакетного менеджера системы.
+  и настройки отступов для любых редакторов.
 
 ## Стиль кода
 
@@ -85,18 +81,6 @@ tools/style-check.py --fix        # автоформатирование (clang-
 Проект `shop-catalog`: все задачи 01–06 выполнены, файлы решений лежат
 в репозитории (01–05 — отдельные `task-NN-*.cpp`, финальная сборка — `shop.cpp`;
 постановки — в `TASKS.md`).
-
-## Стиль кода
-
-Код пишется в **Yandex C++ Style**:
-
-https://github.com/yandex/CMICOT/blob/master/CPP_STYLE_GUIDE.md
-
-Главное: отступ 4 пробела без табов, скобки 1TBS, тела функций и операторов
-всегда с новой строки, функции и поля типов с большой буквы, типы с префиксами
-`T`/`E` (`TProduct`, `ECategory`), локальные переменные — строчные, `nullptr`
-вместо `NULL`/`0`. Форматирование — через `.clang-format` (лимит строки 100
-колонок); полная шпаргалка и правила именования — в `AGENTS.md`.
 
 ## Лицензия
 
