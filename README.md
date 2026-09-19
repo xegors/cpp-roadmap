@@ -18,8 +18,8 @@ projects/
   shop-catalog/          # учебный проект: каталог товаров (struct, enum, ссылки, указатели)
 ```
 
-Постановки задач проекта лежат рядом с кодом в `*.md`-файлах
-(например, `projects/shop-catalog/TASKS.md`).
+Все постановки задач проекта консолидированы в
+`projects/shop-catalog/TASKS.md`.
 
 ## Как компилировать и запускать
 
@@ -38,10 +38,11 @@ clang++ -O2 -std=c++20 -Wall -Wextra tasks/yandex-handbook/first-steps/two-sum.c
 ## Прогресс
 
 Учебник (`tasks/yandex-handbook`): `first-steps` (2), `types` (2), `cond-and-loops` (7),
-`vectors-and-strings` (6), `functions` (2).
+`vectors-and-strings` (6), `functions` (5).
 
-Проект `shop-catalog`: все задачи 01–06 выполнены; файлы решений 05–06
-в репозиторий не добавлялись (см. `TASKS.md`).
+Проект `shop-catalog`: все задачи 01–06 выполнены, файлы решений лежат
+в репозитории (01–05 — отдельные `task-NN-*.cpp`, финальная сборка — `shop.cpp`;
+постановки — в `TASKS.md`).
 
 ## Стиль кода
 

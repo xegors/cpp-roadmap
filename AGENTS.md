@@ -20,7 +20,7 @@ tasks/
     functions/           # functions
 projects/
   shop-catalog/          # learning project: product catalog (struct, enum, refs, pointers);
-                         # task statements live next to code in *.md files (see TASKS.md)
+                         # all task statements consolidated in TASKS.md
 README.md                # Russian overview, build instructions, progress
 LICENSE                  # MIT
 .clang-format            # shared minimum style (LLVM base, 4-space indent); existing files

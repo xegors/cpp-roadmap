@@ -8,8 +8,8 @@
 по задачам: каждая задача — свой файл `task-NN-*.cpp`. Финальная сборка —
 `shop.cpp` из лучших кусков.
 
-Все шесть задач выполнены. Файлы решений 01–04 лежат в репозитории;
-файлы решений 05–06 в репозиторий не добавлялись.
+Все шесть задач выполнены, файлы решений в репозитории: 01–05 — отдельные
+файлы `task-NN-*.cpp`, финальная сборка — `shop.cpp`.
 
 ## Задача 01 — struct + enum ✅
 
@@ -93,12 +93,41 @@ clang++ -std=c++20 -O2 -Wall -Wextra -o /tmp/task04 projects/shop-catalog/task-0
 
 ## Задача 05 — pair/tuple + structured binding ✅
 
-Файл решения в репозиторий не добавлялся. Темы: 2.5 — `stats` возвращает
-`pair`/`tuple`, распаковка `auto [total, qty] = ...`, `std::get<>`.
-Плановый файл: `task-05-stats-pair-tuple.cpp`.
+Файл: `task-05-stats-pair-tuple.cpp`. Темы: 2.5 — `pair`/`tuple`,
+распаковка `auto [total, qty] = ...`, `std::get<>`.
+
+- `enum class Category` и `struct Product` из задачи 03; `vector<Product>`
+  из 3–4 товаров с designated initializers.
+- Функция `stats(const std::vector<Product>&)` возвращает
+  `std::pair<double, int>` — сумма `price * qty` и общий `qty`;
+  в `main()` распаковка `auto [total, qty] = stats(catalog);`
+  и вывод в одну строку.
+- Оба способа доступа: structured binding и `std::get<0>` / `std::get<1>`.
+- Комментарий: `tuple` тоже распаковывается structured binding'ом
+  (`auto [a, b, c] = tuple`), `pair` — его частный случай.
+
+Проверка:
+
+```bash
+clang++ -std=c++20 -O2 -Wall -Wextra -o /tmp/task05 projects/shop-catalog/task-05-stats-pair-tuple.cpp && /tmp/task05
+```
 
 ## Задача 06 — финал: dangling + const-аудит + CLI-цикл ✅
 
-Файл решения в репозиторий не добавлялся. Собрать `shop.cpp` с командами
-`add/list/find/buy/discount/stats/remove/exit`, прокомментировать одно место
-с висячей ссылкой и как его избежали. Плановый файл: `shop.cpp`.
+Файл: `shop.cpp`. Темы: 2.7 — висячие ссылки/указатели, const-аудит,
+CLI-цикл.
+
+- В один файл собраны лучшие куски 01–05: `enum class Category`,
+  `struct Product`, печать через `const auto&`, `findByName` (задача 03),
+  `buy`/`discount`/`removeByName` (задача 04), `stats` (задача 05).
+- `while (std::cin >> cmd)`: команды `add/list/find/buy/discount/stats/remove/exit`;
+  `add` и `find`/`buy`/`remove` поддерживают многословные названия товаров.
+- Комментарий про инвалидацию указателя: после `push_back`/`erase` ранее
+  взятые `Product*` могут стать dangling — товар всегда достаётся заново
+  через `findByName`.
+
+Проверка:
+
+```bash
+clang++ -std=c++20 -O2 -Wall -Wextra -o /tmp/shop projects/shop-catalog/shop.cpp && /tmp/shop
+```
