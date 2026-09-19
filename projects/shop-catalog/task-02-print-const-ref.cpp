@@ -2,58 +2,32 @@
 #include <string>
 #include <vector>
 
-enum class Category {
-    Food,
-    Bike,
-    Tech,
-    Book
-};
+enum class ECategory { Food, Bike, Tech, Book };
 
-struct Product {
-    std::string name;
-    double price = 0.0;
-    int qty = 0;
-    Category cat;
+struct TProduct {
+    std::string Name;
+    double Price = 0.0;
+    int Qty = 0;
+    ECategory Cat;
 };
 
 int main() {
-    std::vector<Product> catalog = {
-        {
-            "Local Chicken Breast",
-            499.9,
-            15,
-            Category::Food
-        },
-        {
-            .name = "Olympus OM-D E-M1 Mark III",
-            .price = 10990.0,
-            .qty = 2,
-            .cat = Category::Tech
-        },
-        {
-            "Some Old Soviet Bike",
-            4990.0,
-            1,
-            Category::Bike
-        },
-        {
-            "Flush by Virginia Woolf",
-            700.0,
-            70,
-            Category::Book
-        }
-    };
+    std::vector<TProduct> catalog = {
+        {"Local Chicken Breast", 499.9, 15, ECategory::Food},
+        {.Name = "Olympus OM-D E-M1 Mark III", .Price = 10990.0, .Qty = 2, .Cat = ECategory::Tech},
+        {"Some Old Soviet Bike", 4990.0, 1, ECategory::Bike},
+        {"Flush by Virginia Woolf", 700.0, 70, ECategory::Book}};
 
     for (const auto& p : catalog) {
-        std::cout << p.name << " | " << p.price << " | " << p.qty << " | "
-                  << static_cast<int>(p.cat) << '\n';
+        std::cout << p.Name << " | " << p.Price << " | " << p.Qty << " | "
+                  << static_cast<int>(p.Cat) << '\n';
     }
 
-    catalog[1].price = 9990.0;
+    catalog[1].Price = 9990.0;
 
     std::cout << "--- after update ---\n";
     for (const auto& p : catalog) {
-        std::cout << p.name << " | " << p.price << " | " << p.qty << " | "
-                  << static_cast<int>(p.cat) << '\n';
+        std::cout << p.Name << " | " << p.Price << " | " << p.Qty << " | "
+                  << static_cast<int>(p.Cat) << '\n';
     }
 }

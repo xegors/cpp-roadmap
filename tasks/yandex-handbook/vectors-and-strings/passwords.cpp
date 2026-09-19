@@ -1,9 +1,9 @@
-#include <iostream>
 #include <cctype>
+#include <iostream>
 #include <string>
 
 int main() {
-    std::string password; 
+    std::string password;
     std::getline(std::cin, password);
     bool upper = false, lower = false, digit = false, punct = false;
 
@@ -12,11 +12,15 @@ int main() {
         return 0;
     }
 
-    for (auto sym : password){
-        if (std::isdigit(sym)) digit = true;
-        else if (std::isupper(sym)) upper = true;
-        else if (std::islower(sym)) lower = true;
-        else if (std::ispunct(sym)) punct = true;
+    for (auto sym : password) {
+        if (std::isdigit(sym))
+            digit = true;
+        else if (std::isupper(sym))
+            upper = true;
+        else if (std::islower(sym))
+            lower = true;
+        else if (std::ispunct(sym))
+            punct = true;
         else {
             std::cout << "NO";
             return 0;

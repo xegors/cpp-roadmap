@@ -1,67 +1,41 @@
 #include <iostream>
 #include <string>
-#include <vector>
 #include <utility>
+#include <vector>
 
-enum class Category {
-    Food,
-    Bike,
-    Tech,
-    Book
+enum class ECategory { Food, Bike, Tech, Book };
+
+struct TProduct {
+    std::string Name;
+    double Price = 0.0;
+    int Qty = 0;
+    ECategory Cat;
 };
 
-struct Product {
-    std::string name;
-    double price = 0.0;
-    int qty = 0;
-    Category cat;
-};
-
-std::pair<double, int> stats(const std::vector<Product>& catalog) {
+std::pair<double, int> Stats(const std::vector<TProduct>& catalog) {
     double overallSum = 0.0;
     int overallQty = 0;
 
     for (const auto& p : catalog) {
-        overallQty += p.qty;
-        overallSum += p.price * p.qty;
+        overallQty += p.Qty;
+        overallSum += p.Price * p.Qty;
     }
 
     return {overallSum, overallQty};
 }
 
 int main() {
-    std::vector<Product> catalog = {
-        {
-            "Local Chicken Breast",
-            499.9,
-            15,
-            Category::Food
-        },
-        {
-            .name = "Olympus OM-D E-M1 Mark III",
-            .price = 10990.0,
-            .qty = 2,
-            .cat = Category::Tech
-        },
-        {
-            "Some Old Soviet Bike",
-            4990.0,
-            1,
-            Category::Bike
-        },
-        {
-            "Flush by Virginia Woolf",
-            700.0,
-            70,
-            Category::Book
-        }
-    };
+    std::vector<TProduct> catalog = {
+        {"Local Chicken Breast", 499.9, 15, ECategory::Food},
+        {.Name = "Olympus OM-D E-M1 Mark III", .Price = 10990.0, .Qty = 2, .Cat = ECategory::Tech},
+        {"Some Old Soviet Bike", 4990.0, 1, ECategory::Bike},
+        {"Flush by Virginia Woolf", 700.0, 70, ECategory::Book}};
 
-    auto [total, qty] = stats(catalog);
+    auto [total, qty] = Stats(catalog);
     std::cout << "Total value: " << total << ", Total qty: " << qty << '\n';
 
-    std::cout << "Via `std::get<0>`: " << std::get<0>(stats(catalog)) << '\n';
-    std::cout << "Via `std::get<1>`: " << std::get<1>(stats(catalog)) << '\n';
+    std::cout << "Via `std::get<0>`: " << std::get<0>(Stats(catalog)) << '\n';
+    std::cout << "Via `std::get<1>`: " << std::get<1>(Stats(catalog)) << '\n';
 
     // Кортеж, как и пару можно распаковать с помощью structured binding.
     std::tuple<int, std::string, double> t = {1, "wow!", 3.1415};

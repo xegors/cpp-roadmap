@@ -1,5 +1,5 @@
-#include <iostream>
 #include <iomanip>
+#include <iostream>
 
 int main() {
     int firstWeekday, monthAmount;
@@ -12,7 +12,8 @@ int main() {
         for (int col = 1; col <= 7; ++col) {
             bool isLeadingBlank = (week == 0) && (col < firstWeekday);
 
-            if (col > 1) std::cout << " "; // в первый день не пишем пробел слева
+            if (col > 1)
+                std::cout << " "; // в первый день не пишем пробел слева
 
             if (isLeadingBlank) {
                 std::cout << "  ";

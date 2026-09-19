@@ -1,0 +1,7 @@
+# clangd doesn't see the compile commands any build system emits, so override
+# the fallback flags for every file in this repo.
+CompileFlags:
+    Add:
+        - -std=c++20
+        - -Wall
+        - -Wextra

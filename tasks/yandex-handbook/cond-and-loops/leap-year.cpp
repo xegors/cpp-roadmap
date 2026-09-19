@@ -1,7 +1,7 @@
 #include <iostream>
 
 int main() {
-    int year; 
+    int year;
     bool isLeapYear = false;
     std::cin >> year;
 

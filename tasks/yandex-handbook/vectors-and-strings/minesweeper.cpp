@@ -10,7 +10,7 @@ int main() {
     for (int i = 0; i < mineAmount; ++i) {
         int row, col;
         std::cin >> row >> col;
-        field[row-1][col-1] = '*';
+        field[row - 1][col - 1] = '*';
     }
 
     for (int i = 0; i < numberOfRows; ++i) {
@@ -26,7 +26,8 @@ int main() {
                         }
                         int ni = i + di;
                         int nj = j + dj;
-                        if (ni >= 0 && ni < numberOfRows && nj >= 0 && nj < numberOfCols && field[ni][nj] == '*') {
+                        if (ni >= 0 && ni < numberOfRows && nj >= 0 && nj < numberOfCols &&
+                            field[ni][nj] == '*') {
                             ++count;
                         }
                     }

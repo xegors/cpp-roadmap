@@ -1,14 +1,20 @@
-# Минимальный общий стиль для репозитория: база LLVM + отступ 4 пробела,
-# как в большинстве существующих файлов. Существующие файлы под этот
-# конфиг не переформатированы специально — правится только новый код,
-# при правках старого подстраивайся под стиль конкретного файла.
+# Yandex C++ Style (https://github.com/yandex/CMICOT/blob/master/CPP_STYLE_GUIDE.md):
+# - 1TBS: скобка открывается на той же строке, что for/if/while
+# - отступ 4 пробела, табы запрещены
+# - тела функций и операторов всегда с новой строки (однострочных нет)
+# Именование (функции/члены с большой буквы, префиксы T/E) clang-format
+# не проверяет — его задаёт шпаргалка в AGENTS.md, а проверяет скрипт
+# tools/style-check.py. Репозиторий сверен с этим конфигом; новый код
+# обязан проходить чекер.
 BasedOnStyle: LLVM
 IndentWidth: 4
 TabWidth: 4
 UseTab: Never
 ColumnLimit: 100
 BreakBeforeBraces: Attach
-AllowShortFunctionsOnASingleLine: Inline
+AllowShortFunctionsOnASingleLine: None
 AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AllowShortLambdasOnASingleLine: Inline
 PointerAlignment: Left
 ReferenceAlignment: Left

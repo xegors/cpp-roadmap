@@ -2,81 +2,57 @@
 #include <string>
 #include <vector>
 
-enum class Category {
-    Food,
-    Bike,
-    Tech,
-    Book
+enum class ECategory { Food, Bike, Tech, Book };
+
+struct TProduct {
+    std::string Name;
+    double Price = 0.0;
+    int Qty = 0;
+    ECategory Cat;
 };
 
-struct Product {
-    std::string name;
-    double price = 0.0;
-    int qty = 0;
-    Category cat;
-};
-
-Product* findByName(std::vector<Product>& catalog, const std::string& name) {
+TProduct* FindByName(std::vector<TProduct>& catalog, const std::string& name) {
     for (auto& p : catalog) {
-        if (name == p.name) return &p;
+        if (name == p.Name)
+            return &p;
     }
 
     return nullptr;
 }
-const Product* findByNameConst(const std::vector<Product>& catalog, const std::string& name) {
+const TProduct* FindByNameConst(const std::vector<TProduct>& catalog, const std::string& name) {
     for (const auto& p : catalog) {
-        if (name == p.name) return &p;
+        if (name == p.Name)
+            return &p;
     }
 
     return nullptr;
 }
-// const Product* - нельзя менять товар, можно менять указатель; Product* const - наоборот.
+// const TProduct* - нельзя менять товар, можно менять указатель; TProduct* const - наоборот.
 
 int main() {
-    std::vector<Product> catalog = {
-        {
-            "Local Chicken Breast",
-            499.9,
-            15,
-            Category::Food
-        },
-        {
-            .name = "Olympus OM-D E-M1 Mark III",
-            .price = 10990.0,
-            .qty = 2,
-            .cat = Category::Tech
-        },
-        {
-            "Some Old Soviet Bike",
-            4990.0,
-            1,
-            Category::Bike
-        },
-        {
-            "Flush by Virginia Woolf",
-            700.0,
-            70,
-            Category::Book
-        }
-    };
+    std::vector<TProduct> catalog = {
+        {"Local Chicken Breast", 499.9, 15, ECategory::Food},
+        {.Name = "Olympus OM-D E-M1 Mark III", .Price = 10990.0, .Qty = 2, .Cat = ECategory::Tech},
+        {"Some Old Soviet Bike", 4990.0, 1, ECategory::Bike},
+        {"Flush by Virginia Woolf", 700.0, 70, ECategory::Book}};
 
-    auto p1 = findByName(catalog, "Local Chicken Breast");
+    auto p1 = FindByName(catalog, "Local Chicken Breast");
     if (p1 != nullptr) {
-        std::cout << p1->name << " | " << p1->price << '\n';
+        std::cout << p1->Name << " | " << p1->Price << '\n';
     } else {
         std::cout << "not found!" << '\n';
     }
 
-    auto p2 = findByName(catalog, "My Dog");
+    auto p2 = FindByName(catalog, "My Dog");
     if (p2 != nullptr) {
-        std::cout << p2->name << " | " << p2->price << '\n';
+        std::cout << p2->Name << " | " << p2->Price << '\n';
     } else {
         std::cout << "not found!" << '\n';
     }
 
-    auto p3 = findByNameConst(catalog, "Local Chicken Breast");
+    auto p3 = FindByNameConst(catalog, "Local Chicken Breast");
     if (p3 != nullptr) {
-        std::cout << (*p3).name << " | " << (*p3).price << '\n';
+        std::cout << (*p3).Name << " | " << (*p3).Price << '\n';
     } else {
         std::cout << "not found!" << '\n';
     }

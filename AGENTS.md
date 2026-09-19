@@ -20,12 +20,32 @@ tasks/
     functions/           # functions
 projects/
   shop-catalog/          # learning project: product catalog (struct, enum, refs, pointers);
-                         # task statements live next to code in *.md files (see TASKS.md)
+                         # all task statements consolidated in TASKS.md
 README.md                # Russian overview, build instructions, progress
 LICENSE                  # MIT
-.clang-format            # shared minimum style (LLVM base, 4-space indent); existing files
-                         # are NOT reformatted to it on purpose — see Conventions
+.clang-format            # Yandex C++ style (see Conventions); whole repo conforms
+.clangd                  # clangd fallback flags (-std=c++20) — there is no build system
+.editorconfig            # tabs->spaces, 4-space indent, trim trailing whitespace
+.vscode/                 # VS Code: format-on-save via clangd + extension recommendation
+tools/style-check.py     # style checker (a local replacement for `ya style`)
 ```
+
+## Style checking
+
+`tools/style-check.py` checks the whole repo (or explicit files) against
+Yandex style:
+
+```
+tools/style-check.py              # report violations, exit 1 if any
+tools/style-check.py --fix        # auto-format (clang-format -i + strip trailing ws)
+tools/style-check.py <file>...    # targeted check
+```
+
+Checks: formatting conformance via `clang-format --dry-run --Werror`, no tabs /
+trailing whitespace, and naming heuristics (types `T`/`E`, uppercase functions
+and struct members, `main()` and libc-like functions exempt). The naming rules
+are line-shape heuristics, not a full C++ parser — review every flag manually.
+Requires `clang-format` on PATH.
 
 ## Compile and run
 
@@ -37,10 +57,28 @@ clang++ -lm -O2 -std=c++20 -x c++
 
 Leftover `a.out` binaries sit next to sources but are already gitignored (`*.out`) — don't worry about them.
 
+## Editor tooling
+
+- `.vscode/settings.json` + `extensions.json` — format-on-save via the clangd
+  extension (`llvm-vs-code-extensions.vscode-clangd`), 4-space indent, trim
+  trailing whitespace.
+- `.clangd` — clangd fallback flags (`-std=c++20 -Wall -Wextra`), needed because
+  there is no build system / `compile_commands.json`.
+
 ## Conventions
 
 - Each file is a single `main()` — no headers, no classes, no build targets.
-- Style varies slightly between files; match the style of the file you're editing.
-  Use `.clang-format` for new code (LLVM base, 4-space indent, 100-col limit).
+  (Exception: `tasks/yandex-handbook/functions/` has a few helper-only `.cpp` without `main`.)
+- Code follows the **Yandex C++ Style Guide**:
+  https://github.com/yandex/CMICOT/blob/master/CPP_STYLE_GUIDE.md
+  Formatting is enforced by `.clang-format` (1TBS, 4-space indent, no tabs,
+  bodies always start on a new line). Naming is checked manually — key rules:
+  - Functions and class/struct members start with a capital letter: `FindByName()`, `Name`, `Price`.
+  - Type names get the `T` prefix, `enum class` gets the `E` prefix: `TProduct`, `ECategory`.
+  - Local variables and arguments start with a lowercase letter: `catalog`, `name`.
+  - Constants and macros are fully capitalized with underscores: `VALUE_NAME`.
+  - Always use `nullptr`, never `NULL`/`0`.
+- Style is enforced by `tools/style-check.py` (see above); the whole repo passes.
+  When editing, format with `clang-format` from the repo root and re-run the checker.
 - No trailing `return 0;` is consistent in some files, not others — follow the existing pattern per file.
 - A few files contain Russian inline comments (e.g. `printing-calendar.cpp`) — don't edit them or treat them as noise; they explain intent.
