@@ -1,6 +1,6 @@
 #include <iostream>
-#include <vector>
 #include <string>
+#include <vector>
 
 int main() {
     constexpr size_t maxLen = 100;
@@ -12,11 +12,12 @@ int main() {
     line.reserve(maxLen);
 
     for (char ch : raw) {
-        if (ch != ' ') line.push_back(ch);
+        if (ch != ' ')
+            line.push_back(ch);
     }
 
     for (size_t i = 0; i < line.size() / 2; ++i) {
-        if (line[i] != line[line.size()-i-1]) {
+        if (line[i] != line[line.size() - i - 1]) {
             std::cout << "NO";
             return 0;
         }

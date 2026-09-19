@@ -1,6 +1,6 @@
 #include <iostream>
 
-int main(){
+int main() {
     using namespace std;
 
     double lengthInCM;
